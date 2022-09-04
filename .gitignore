@@ -19,12 +19,16 @@ dist/
 # Package files
 *.jar
 
-# Maven
-target/
-dist/
-
-# JetBrains IDE
-.idea/
+# Play
+logs
+target
+/.bsp
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
 
 # Unit test reports
 TEST*.xml
