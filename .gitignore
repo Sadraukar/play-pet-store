@@ -53,3 +53,4 @@ Thumbs.db
 *.wmv
 
 /.g8/
+/conf/application-local.conf
