@@ -15,6 +15,6 @@ public class SearchController extends Controller {
                 .eq("petType", petType)
                 .findList();
 
-        return Json.;
+        return new Result(OK);
     }
 }

@@ -7,7 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user")
+//  "user" is a reserved word in Postgres and should not be used as a table name
+@Table(name="users")
 public class User extends BaseModel {
 
     @Column(length = 255)
