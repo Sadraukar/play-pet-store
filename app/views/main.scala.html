@@ -4,6 +4,7 @@
  * two arguments, a `String` for the title of the page and an `Html`
  * object to insert into the body of the page.
  *@
+@import models.Pet
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
@@ -48,11 +49,9 @@
                                     Pets
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a href="#" class="dropdown-item text-white">Dogs</a></li>
-                                    <li><a href="#" class="dropdown-item text-white">Cats</a></li>
-                                    <li><a href="#" class="dropdown-item text-white">Birds</a></li>
-                                    <li><a href="#" class="dropdown-item text-white">Fish</a></li>
-                                    <li><a href="#" class="dropdown-item text-white">Reptiles</a></li>
+                                    @for(petType <- Pet.PetType.values()) {
+                                        <li><a href="#" class="dropdown-item text-white">@petType</a></li>
+                                    }
                                 </ul>
                             </li>
                         </ul>

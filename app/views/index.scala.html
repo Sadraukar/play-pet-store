@@ -1,7 +1,12 @@
+@import models.Pet
 @()
 
 @main("Home") {
-
+  <ul>
+    @for(petType <- Pet.PetType.values()) {
+      <li>@petType</li>
+    }
+  </ul>
   <h1>Welcome to Play Pet Store!</h1>
   <button type="button" class="btn btn-primary">Bootstrap Button!</button>
 }
