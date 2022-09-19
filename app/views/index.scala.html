@@ -2,11 +2,18 @@
 @()
 
 @main("Home") {
-  <ul>
-    @for(petType <- Pet.PetType.values()) {
-      <li>@petType</li>
-    }
-  </ul>
-  <h1>Welcome to Play Pet Store!</h1>
-  <button type="button" class="btn btn-primary">Bootstrap Button!</button>
+  <div class="container">
+    <div class="row justify-content-start">
+      <div class="col-7 offset-md-2 text-center">
+        <h1 class="display-6 fw-bold">Welcome to Play Pet Store!</h1>
+        <img class="img-fluid mx-auto rounded-circle" src="@routes.Assets.versioned("images/splash.jpg")"/>
+        <hr>
+        <div class="list-group">
+        @for(petType <- Pet.PetType.values()) {
+          <a href="#" class="list-group-item list-group-item-action">@petType</a>
+        }
+        </div>
+      </div>
+    </div>
+  </div>
 }
