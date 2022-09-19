@@ -9,6 +9,8 @@ create table pet (
   pet_type                      integer not null,
   description                   varchar(255),
   price                         decimal(16,3),
+  product_id                    varchar(255),
+  color                         varchar(255),
   version                       bigint not null,
   when_created                  timestamptz not null,
   when_modified                 timestamptz not null,

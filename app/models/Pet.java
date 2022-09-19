@@ -31,6 +31,12 @@ public class Pet extends BaseModel {
     @Column(scale=2)
     private BigDecimal price;
 
+    @Column
+    private String productId;
+
+    @Column
+    private String color;
+
     public String getName() {
         return name;
     }
@@ -61,5 +67,21 @@ public class Pet extends BaseModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
