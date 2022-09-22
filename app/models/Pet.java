@@ -37,6 +37,15 @@ public class Pet extends BaseModel {
     @Column
     private String color;
 
+    public Pet(String name, PetType petType, String description, BigDecimal price, String productId, String color) {
+        this.name = name;
+        this.petType = petType;
+        this.description = description;
+        this.price = price;
+        this.productId = productId;
+        this.color = color;
+    }
+
     public String getName() {
         return name;
     }

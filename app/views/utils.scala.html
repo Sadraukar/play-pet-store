@@ -1,0 +1,50 @@
+@()
+
+@main("Utils") {
+    <div class="container">
+        <div class="row justify-content-start">
+            <div class="col-7 offset-md-2 text-center">
+                <h1 class="display-6 fw-bold">Play Pet Store Debug Utils</h1>
+                <img class="img-fluid mx-auto rounded-circle" src="@routes.Assets.versioned("images/splash.jpg")"/>
+                <hr>
+                <button class="btn btn-success btn-lg" onclick="handleSeedDatabase(this)">SEED DATABASE</button>
+                <hr>
+                <button class="btn btn-danger btn-lg" onclick="handleClearDatabase(this)">CLEAR DATABASE</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function handleSeedDatabase(button) {
+            button.disabled = true;
+            fetch('/seed', {method: 'PUT'})
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Database seed request failed.');
+                    }
+                })
+                .then(() => {
+                    button.disabled=false;
+                    alert('Success!');
+                })
+                .catch((error) => {
+                    console.error('There was a problem with your database seed request: ', error);
+                });
+        }
+        function handleClearDatabase(button) {
+            button.disabled = true;
+            fetch('/seed', {method: 'DELETE'})
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Database clear request failed.');
+                        }
+                    })
+                    .then(() => {
+                        button.disabled=false;
+                        alert('Success!');
+                    })
+                    .catch((error) => {
+                        console.error('There was a problem with your database clear request: ', error);
+                    });
+        }
+    </script>
+}
