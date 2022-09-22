@@ -30,7 +30,7 @@
                             </a>
                         </a>
                         <hr>
-                        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="/search" method="get">
+                        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="/pets/search" method="get">
                             <input type="search" name="keyword" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
                         </form>
                         <hr>
@@ -54,7 +54,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
                                     @for(petType <- Pet.PetType.values()) {
-                                        <li><a href="#" class="dropdown-item text-white">@petType</a></li>
+                                        <li><a href="/pets/type/@petType" class="dropdown-item text-white">@petType</a></li>
                                     }
                                 </ul>
                             </li>
@@ -78,7 +78,9 @@
                 </div>
                 @* And here's where we render the `Html` object containing
                 * the page content. *@
-                <div id="content" class="col-md-9 content">@content</div>
+                <div id="content" class="col-md-9 content">
+                    @content
+                </div>
             </div>
         </main>
         <div class="container">

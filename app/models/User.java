@@ -26,6 +26,20 @@ public class User extends BaseModel {
     @NotNull
     private boolean isActive;
 
+    public User(String name, String password, String email, boolean isActive) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.isActive = isActive;
+    }
+
+    public User(String name, String password, String email) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.isActive = true;
+    }
+
     public void setId(long id) {
         this.id = id;
     }

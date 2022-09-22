@@ -10,6 +10,7 @@ scalaVersion := "2.13.8"
 libraryDependencies ++= Seq(
   guice,
   javaJdbc,
+  caffeine,
   "org.postgresql" % "postgresql" % "42.2.12",
   "io.ebean" % "ebean-querybean" % "13.9.2",
   "io.ebean" % "ebean-agent" % "13.9.2",
