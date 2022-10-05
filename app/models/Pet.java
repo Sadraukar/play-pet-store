@@ -15,7 +15,7 @@ public class Pet extends BaseModel {
     public enum PetType {
         @EnumValue("1") Dog,
         @EnumValue("2") Cat,
-        @EnumValue("3") Fish,
+        @EnumValue("3") Amphibian,
         @EnumValue("4") Bird,
         @EnumValue("5") Reptile
     }
@@ -28,7 +28,7 @@ public class Pet extends BaseModel {
     @Column(length=255)
     private String description;
 
-    @Column(scale=2)
+    @Column(scale=1)
     private BigDecimal price;
 
     @Column

@@ -1,0 +1,14 @@
+@import models.Pet
+@(pet : Pet)
+
+<li class="list-group-item">
+    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+        <div class="media-body col-md-9 order-2 order-lg-1 float-start">
+            <h5 class="mt-0 font-weight-bold mb-2">@pet.getName</h5>
+            <p class="font-italic text-muted mb-0 small">@pet.getPetType | @pet.getColor | @pet.getDescription</p>
+            <div class="d-flex align-items-center justify-content-between mt-1">
+                <h6 class="font-weight-bold my-2">$@pet.getPrice</h6>
+            </div>
+        </div><img src="@routes.Assets.versioned("images/pets/thumbnail/" + pet.getProductId + ".png")" alt="@pet.getName" height="140" width="140" class="ml-lg-5 order-1 order-lg-2 rounded float-end"/>
+    </div>
+</li>

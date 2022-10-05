@@ -25,13 +25,13 @@ public class PetTest extends WithApplication {
         Pet pet = new Pet();
         pet.setName("Sparky");
 
-        // insert the customer in the DB
+        // insert the pet in the DB
         DB.save(pet);
 
         // Find by Id
         Pet foundSparky = DB.find(Pet.class, 1);
 
-        // delete the customer
+        // delete the pet
         DB.delete(pet);
     }
 }

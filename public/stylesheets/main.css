@@ -1,3 +1,19 @@
+body {
+    min-height: 100vh
+}
+
 .inverted-icon {
     filter: invert(100%);
+}
+
+.pps-sidebar {
+    overflow-y: auto;
+}
+
+.content {
+    background: linear-gradient(to right, RGBA(33,37,41,var(--bs-bg-opacity,1)), #e7e7e7);
+}
+
+footer {
+    background: white;
 }

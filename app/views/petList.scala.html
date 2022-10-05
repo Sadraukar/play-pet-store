@@ -4,35 +4,14 @@
 @main("Pet List") {
     <div class="container">
         <div class="row">
-            <div class="align-self-center text-center">
-                <p>List of pets: </p>
+            <div class="col-lg-9 mx-auto">
+                <h5 class="text-light" >@searchResults.size results</h5>
                 <hr>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Product ID</th>
-                            <th scope="col">Product Type</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Color</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Price</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for(result <- searchResults) {
-                            <tr>
-                                <th scope="row">@result.getProductId</th>
-                                <td>@result.getPetType.name</td>
-                                <td>@result.getName</td>
-                                <td>@result.getColor</td>
-                                <td>@result.getDescription</td>
-                                <td>$@result.getPrice</td>
-                                <td><button type="button" class="btn btn-primary btn-sm">Add to Cart</button></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                <ul class="list-group shadow">
+                    @for(result <- searchResults) {
+                        @petListEntry(result)
+                    }
+                </ul>
             </div>
         </div>
     </div>

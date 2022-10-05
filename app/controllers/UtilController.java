@@ -19,13 +19,15 @@ public class UtilController extends Controller {
 
     private List<Pet> SEED_PET_DATA = new ArrayList<>(Arrays.asList(
             new Pet("West Highland Terrier", Pet.PetType.Dog, "Commonly known as the \"Westie\".", new BigDecimal("500.00"), "PPS-001-D", "White"),
-            new Pet("Jack Russel Terrier", Pet.PetType.Dog, "An energetic breed that rely on a high level of exercise and stimulation.", new BigDecimal("400.00"), "PPS-002-D", "Brown"),
+            new Pet("Cavalier King Charles Spaniel", Pet.PetType.Dog, "Highly affectionate, playful, extremely patient and eager to please. Dogs of this breed are good with children and other dogs.", new BigDecimal("600.00"), "PPS-002-D", "Brown"),
             new Pet("Dachshund", Pet.PetType.Dog, "A short-legged, long-bodied hound known as the \"wiener dog\".", new BigDecimal("350.00"), "PPS-003-D", "Black"),
             new Pet("German Shepherd", Pet.PetType.Dog, "Working breed known for its intelligence.", new BigDecimal("650.00"), "PPS-004-D", "Brown"),
             new Pet("Golden Retriever", Pet.PetType.Dog, "Characterised by a gentle and affectionate nature and a striking golden coat.", new BigDecimal("650.00"), "PPS-005-D", "Gold"),
-            new Pet("Bulldog", Pet.PetType.Dog, "A muscular, hefty dog with a wrinkled face and a distinctive pushed-in nose.", new BigDecimal("450.00"), "PPS-006-D", "White"),
-            new Pet("Border Collie", Pet.PetType.Dog, "A herding dog that is widely considered to be the most intelligent dog breed.", new BigDecimal("600.00"), "PPS-007-D", "Black"),
+            new Pet("Boston Terrier", Pet.PetType.Dog, "Highly intelligent and easily trained, this breed is known for its small, compact frame.", new BigDecimal("450.00"), "PPS-006-D", "White"),
+            new Pet("Jack Russel Terrier", Pet.PetType.Dog, "An energetic breed that rely on a high level of exercise and stimulation.", new BigDecimal("400.00"), "PPS-007-D", "Brown"),
             new Pet("Pekingese", Pet.PetType.Dog, "A toy breed favored by Chinese royalty.", new BigDecimal("500.00"), "PPS-008-D", "Brown"),
+            new Pet("Mixed Breed", Pet.PetType.Dog, "A mixture of German Shepard and Basenji known for its photogenic appearance.", new BigDecimal("500.00"), "PPS-030-D", "Brown"),
+            new Pet("American Pit Bull Terrier", Pet.PetType.Dog, "Famous Pit Bulls include Sergeant Stubby, Pete the Pup, and Sallie Ann Jarrett.", new BigDecimal("500.00"), "PPS-031-D", "Brown"),
             new Pet("Siamese", Pet.PetType.Cat, "A distinctive breed native in Thailand, this cat was one of the most popular in Europe during the 19th century.", new BigDecimal("500.00"), "PPS-009-D", "White"),
             new Pet("British Shorthair", Pet.PetType.Cat, "Possesses a distinctively stocky body, dense coat, and broad face.", new BigDecimal("450.00"), "PPS-010-C", "Grey"),
             new Pet("Persian", Pet.PetType.Cat, "A long-haired breed of cat characterized by a round face and short muzzle.", new BigDecimal("600.00"), "PPS-011-C", "Gold"),
@@ -37,17 +39,16 @@ public class UtilController extends Controller {
             new Pet("Canary", Pet.PetType.Bird, "A small songbird of the finch family.  Brought to Europe from the Macronesian Islands in 17th century by Spanish sailors.", new BigDecimal("200.00"), "PPS-017-B", "Yellow"),
             new Pet("Amazon Parrot", Pet.PetType.Bird, "Many of these birds possess the ability to mimic human speech", new BigDecimal("400.00"), "PPS-018-B", "Green"),
             new Pet("Scarlet Macaw", Pet.PetType.Bird, "The national bird of Honduras, this breed is popular for its striking plumage.", new BigDecimal("500.00"), "PPS-019-B", "Red"),
-            new Pet("Goldfish", Pet.PetType.Fish, "One of the most popular aquarium fish, this breed is one of the smallest members of the carp family.", new BigDecimal("1.00"), "PPS-020-F", "Gold"),
-            new Pet("Piranha", Pet.PetType.Fish, "A predatory freshwater breed with one of the most powerful bites of all fish.", new BigDecimal("20.00"), "PPS-021-F", "Blue"),
-            new Pet("Bristlenose Pleco", Pet.PetType.Fish, "A bottom-feeder prized by aquarium owners for its ability to clean tank glass with its sucker mouth.", new BigDecimal("5.00"), "PPS-022-F", "Green"),
-            new Pet("Koi", Pet.PetType.Fish, "A species of carp often kept for decorative purposes.", new BigDecimal("50.00"), "PPS-023-F", "Orange"),
-            new Pet("Tiger Barb", Pet.PetType.Fish, "A tropical fish known for its distinctive fin pattern.", new BigDecimal("5.00"), "PPS-024-F", "Orange"),
-            new Pet("Tortoise", Pet.PetType.Reptile, "Possess a massive shell on their backs which can be used for protection from predators.", new BigDecimal("100.00"), "PPS-025-R", "Green"),
+            new Pet("Axolotl", Pet.PetType.Amphibian, "An unusual amphibian that undergoes metamorphisis to reach adulthood.", new BigDecimal("75.00"), "PPS-020-A", "White"),
+            new Pet("Rainbow Tree Frog", Pet.PetType.Amphibian, "Excellent jumpers that spend most of their lives in trees.", new BigDecimal("20.00"), "PPS-021-A", "Green"),
+            new Pet("American Toad", Pet.PetType.Amphibian, "Produces a poison that is non-lethal to humans, but should be handled with care.", new BigDecimal("40.00"), "PPS-022-A", "Green"),
+            new Pet("Pickerel Frog", Pet.PetType.Amphibian, "characterized by the appearance of seemingly \"hand-drawn\" squares on its dorsal surface.", new BigDecimal("10.00"), "PPS-023-A", "Green"),
+            new Pet("Poison Dart Frog", Pet.PetType.Amphibian, "A poisonous frog, their venom was used by Native American tribes for crafting darts.", new BigDecimal("35.00"), "PPS-024-A", "Blue"),
+            new Pet("Box Turtle", Pet.PetType.Reptile, "Possess a massive shell on their backs which can be used for protection from predators.", new BigDecimal("100.00"), "PPS-025-R", "Green"),
             new Pet("Bearded Dragon", Pet.PetType.Reptile, "When threatened, will puff up their bodies and beards to ward off predators.", new BigDecimal("120.00"), "PPS-026-R", "Tan"),
             new Pet("Ball Python", Pet.PetType.Reptile, "Arguably the most popular pet snake.  Can live up to 35 years in captivity.", new BigDecimal("180.00"), "PPS-027-R", "Black"),
-            new Pet("Burmese Python", Pet.PetType.Reptile, "Use caution when handling due to their weight and size.  Feeding requires handling of mice.", new BigDecimal("250.00"), "PPS-028-R", "Brown"),
-            new Pet("Australian Green Tree Frog", Pet.PetType.Reptile, "One of the most popular pet frogs.  Docile and easy to keep, these frogs are fairly inactive.", new BigDecimal("25.00"), "PPS-029-R", "Green"),
-            new Pet("American Toad", Pet.PetType.Reptile, "Produces a poison that is non-lethal to humans, but should be handled with care.", new BigDecimal("40.00"), "PPS-030-R", "Green")
+            new Pet("Amethystine Python", Pet.PetType.Reptile, "Use caution when handling due to their weight and size.  Feeding requires handling of mice.", new BigDecimal("250.00"), "PPS-028-R", "Brown"),
+            new Pet("Red Eared Slider", Pet.PetType.Reptile, "One of the most popular pet turtles.  Unable to regulate their body temperature, they are frequently found sunbathing.", new BigDecimal("25.00"), "PPS-029-R", "Green")
     ));
 
     private List<User> SEED_USER_DATA = new ArrayList<>(Arrays.asList(

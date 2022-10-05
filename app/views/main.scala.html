@@ -5,6 +5,7 @@
  * object to insert into the body of the page.
  *@
 @import models.Pet
+
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
@@ -19,10 +20,10 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
     </head>
     <body>
-        <main class="d-flex flex-nowrap">
+        <div class="d-flex flex-nowrap">
             <div class="container-fluid row">
-                <div class="col-md-3">
-                    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+                <aside class="col-md-3 pps-sidebar text-bg-dark">
+                    <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
                         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                             <a class="navbar-brand" href="/">
                                 <img class="d-inline-block bi align-text-top inverted-icon" width="30" height="30" src="@routes.Assets.versioned("images/icons/shop.svg")"/>
@@ -36,19 +37,19 @@
                         <hr>
                         <ul class="nav nav-pills flex-column mb-auto">
                             <li class="nav-item">
-                                <a href="#" class="nav-link active" aria-current="page">
+                                <a href="/" class="nav-link text-white @if(title.equals("Home")){active}" aria-current="page">
                                     <img class="bi pe-none me-2 inverted-icon" width="16" height="16" src="@routes.Assets.versioned("images/icons/house.svg")"/>
                                     Home
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link text-white">
+                                <a href="#" class="nav-link text-white @if(title.equals("Cart")){active}">
                                     <img class="bi pe-none me-2 inverted-icon" width="16" height="16" src="@routes.Assets.versioned("images/icons/cart.svg")"/>
                                     Cart
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link text-white dropdown-toggle @if(title.equals("Pet List")){active}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img class="bi pe-none me-2 inverted-icon" width="16" height="16" src="@routes.Assets.versioned("images/icons/box2-heart.svg")"/>
                                     Pets
                                 </a>
@@ -75,14 +76,14 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </aside>
                 @* And here's where we render the `Html` object containing
                 * the page content. *@
-                <div id="content" class="col-md-9 content">
+                <main id="content" class="col-md-9 content">
                     @content
-                </div>
+                </main>
             </div>
-        </main>
+        </div>
         <div class="container">
             <footer class="footer d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
                 <div class="col-md-4 d-flex align-items-center">

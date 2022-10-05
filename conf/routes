@@ -15,6 +15,6 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 #  Util Endpoints
 + nocsrf
-PUT     /seed                       controllers.UtilController.seedDatabase()
+PUT     /utils/seed                       controllers.UtilController.seedDatabase()
 + nocsrf
-DELETE  /seed                       controllers.UtilController.clearDatabase()
+DELETE  /utils/seed                       controllers.UtilController.clearDatabase()

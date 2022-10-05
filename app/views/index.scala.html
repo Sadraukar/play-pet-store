@@ -5,12 +5,18 @@
   <div class="container">
     <div class="row justify-content-start">
       <div class="col-7 offset-md-2 text-center">
-        <h1 class="display-6 fw-bold">Welcome to Play Pet Store!</h1>
+        <h1 class="display-6 fw-bold text-light">Welcome to Play Pet Store!</h1>
         <img class="img-fluid mx-auto rounded-circle" src="@routes.Assets.versioned("images/splash.jpg")"/>
         <hr>
-        <div class="list-group">
+        <h3 class="text-light">Browse pets by type:</h3>
+        <div class="row">
         @for(petType <- Pet.PetType.values()) {
-          <a href="#" class="list-group-item list-group-item-action">@petType</a>
+          <a class="col-md" href="/pets/type/@petType">
+            <figure class="figure">
+              <img src="@routes.Assets.versioned("images/pets/thumbnail/" + petType + ".png")" class="figure-img img-fluid rounded" alt="@petType">
+              <figcaption class="figure-caption text-light">@petType</figcaption>
+            </figure>
+          </a>
         }
         </div>
       </div>

@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class SearchController extends Controller {
     final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
@@ -31,8 +32,13 @@ public class SearchController extends Controller {
                 .or();
 
         criteria.entrySet().stream()
-                .forEach(c -> expressionList.add(Expr.eq(c.getKey(), c.getValue())));
-
+                .forEach(c -> {
+                    if(c.getKey().equals("description") || c.getKey().equals("name")) {
+                        expressionList.add(Expr.icontains(c.getKey(), c.getValue()));
+                    } else {
+                        expressionList.add(Expr.ieq(c.getKey(), c.getValue()));
+                    }
+                });
         return expressionList.orderBy("productId").findList();
     }
 
@@ -56,21 +62,27 @@ public class SearchController extends Controller {
      *  - name
      *  - description
      *  - color
+     *  - pet type
      * @param keyword The keyword to use for searching
      * @return
      */
     public Result searchPetByKeyword(String keyword) {
         LOGGER.debug("Initiating keyword search for: " + keyword);
-        Map <String, String> searchCriteria = new HashMap<>();
-        KEYWORD_SEARCH_COLUMNS.forEach((c) -> {
-                    searchCriteria.put(c, keyword);
-                });
-        List<Pet> searchResults = search(searchCriteria);
 
-        return ok(views.html.petList.render(searchResults));
+        //  If the keyword is a pet type, search by pet type
+        Optional<Pet.PetType> petTypeKeyword =  Arrays.stream(Pet.PetType.values())
+                .filter(pt -> pt.name().equalsIgnoreCase(keyword))
+                .findFirst();
+        if(petTypeKeyword.isPresent()) {
+            return searchPetByType(petTypeKeyword.get().toString());
+        } else {
+            Map <String, String> searchCriteria = new HashMap<>();
+            KEYWORD_SEARCH_COLUMNS.forEach((c) -> {
+                searchCriteria.put(c, keyword);
+            });
+            List<Pet> searchResults = search(searchCriteria);
+
+            return ok(views.html.petList.render(searchResults));
+        }
     }
-
-//    public Result renderSearchView() {
-//        return ok(views.html.petList.render());
-//    }
 }
