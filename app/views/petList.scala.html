@@ -15,4 +15,22 @@
             </div>
         </div>
     </div>
+    <script>
+            function handleAddToCart(button, petId, petName) {
+                button.disabled = true;
+                fetch('/cart/1/' + petId, {method: 'PATCH'})
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error('Failed to add ' + petName + ' to cart.');
+                            }
+                        })
+                        .then(() => {
+                            button.disabled=false;
+                            alert('Success!');
+                        })
+                        .catch((error) => {
+                            console.error('There was a problem adding a pet to the cart: ', error);
+                        });
+            }
+    </script>
 }

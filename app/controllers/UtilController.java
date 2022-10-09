@@ -1,21 +1,26 @@
 package controllers;
 
+import akka.Done;
 import io.ebean.DB;
 import models.Pet;
 import models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import play.cache.AsyncCacheApi;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 public class UtilController extends Controller {
     final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private AsyncCacheApi cache;
 
     private List<Pet> SEED_PET_DATA = new ArrayList<>(Arrays.asList(
             new Pet("West Highland Terrier", Pet.PetType.Dog, "Commonly known as the \"Westie\".", new BigDecimal("500.00"), "PPS-001-D", "White"),
@@ -28,14 +33,15 @@ public class UtilController extends Controller {
             new Pet("Pekingese", Pet.PetType.Dog, "A toy breed favored by Chinese royalty.", new BigDecimal("500.00"), "PPS-008-D", "Brown"),
             new Pet("Mixed Breed", Pet.PetType.Dog, "A mixture of German Shepard and Basenji known for its photogenic appearance.", new BigDecimal("500.00"), "PPS-030-D", "Brown"),
             new Pet("American Pit Bull Terrier", Pet.PetType.Dog, "Famous Pit Bulls include Sergeant Stubby, Pete the Pup, and Sallie Ann Jarrett.", new BigDecimal("500.00"), "PPS-031-D", "Brown"),
-            new Pet("Siamese", Pet.PetType.Cat, "A distinctive breed native in Thailand, this cat was one of the most popular in Europe during the 19th century.", new BigDecimal("500.00"), "PPS-009-D", "White"),
+            new Pet("Siamese", Pet.PetType.Cat, "A distinctive breed native in Thailand, this cat was one of the most popular in Europe during the 19th century.", new BigDecimal("500.00"), "PPS-009-C", "White"),
             new Pet("British Shorthair", Pet.PetType.Cat, "Possesses a distinctively stocky body, dense coat, and broad face.", new BigDecimal("450.00"), "PPS-010-C", "Grey"),
             new Pet("Persian", Pet.PetType.Cat, "A long-haired breed of cat characterized by a round face and short muzzle.", new BigDecimal("600.00"), "PPS-011-C", "Gold"),
             new Pet("Sphynx", Pet.PetType.Cat, "This breed is hairless due to a naturally-occuring genetic mutation.", new BigDecimal("750.00"), "PPS-012-C", "Grey"),
-            new Pet("American Shorthair", Pet.PetType.Cat, "Descended from European cats brought to North America by early settlers to protect valuable cargo from mice and rats.", new BigDecimal("350.00"), "PPS-013-C", "Black"),
-            new Pet("Cockatiel", Pet.PetType.Bird, "Prized as household pets and companion parrots throughout the world and are relatively easy to breed.", new BigDecimal("150.00"), "PPS-014-B", "Green"),
+            new Pet("American Shorthair", Pet.PetType.Cat, "Descended from European cats brought to North America by early settlers to protect valuable cargo from mice and rats.", new BigDecimal("350.00"), "PPS-013-C", "Orange"),
+            new Pet("Tortoiseshell", Pet.PetType.Cat, "Not a breed, but a cat coat coloring.  Occurs in many different breeds.  Almost exclusively female.", new BigDecimal("350.00"), "PPS-032-C", "Black"),
+            new Pet("Green Cheek Conure", Pet.PetType.Bird, "Prized as household pets and companion parrots throughout the world and are relatively easy to breed.", new BigDecimal("150.00"), "PPS-014-B", "Green"),
             new Pet("African Grey Parrot", Pet.PetType.Bird, "A medium-sized, predominantly grey, black-billed parrot.  May live for 40–60 years in captivity.", new BigDecimal("450.00"), "PPS-015-B", "Grey"),
-            new Pet("Budgerigar", Pet.PetType.Bird, "Commonly known as the shell parakeet, this breed is native to Australia", new BigDecimal("150.00"), "PPS-016-B", "Yellow"),
+            new Pet("Budgerigar", Pet.PetType.Bird, "Commonly known as the shell parakeet, this breed is native to Australia", new BigDecimal("150.00"), "PPS-016-B", "Blue"),
             new Pet("Canary", Pet.PetType.Bird, "A small songbird of the finch family.  Brought to Europe from the Macronesian Islands in 17th century by Spanish sailors.", new BigDecimal("200.00"), "PPS-017-B", "Yellow"),
             new Pet("Amazon Parrot", Pet.PetType.Bird, "Many of these birds possess the ability to mimic human speech", new BigDecimal("400.00"), "PPS-018-B", "Green"),
             new Pet("Scarlet Macaw", Pet.PetType.Bird, "The national bird of Honduras, this breed is popular for its striking plumage.", new BigDecimal("500.00"), "PPS-019-B", "Red"),
@@ -54,6 +60,11 @@ public class UtilController extends Controller {
     private List<User> SEED_USER_DATA = new ArrayList<>(Arrays.asList(
             new User("System Administrator", "Bdt2ybXr", "sysadmin@gregtaylor.net")
     ));
+
+    @Inject
+    public UtilController(AsyncCacheApi cache) {
+        this.cache = cache;
+    }
 
     /**
      * Render the utils page
@@ -107,5 +118,13 @@ public class UtilController extends Controller {
         return CompletableFuture.runAsync(() -> {
             DB.insertAll(SEED_USER_DATA);
         });
+    }
+
+    public CompletionStage<Result> clearApplicationCartCache() {
+        LOGGER.info("Clearing application cart cache...");
+        CompletionStage<Done> result = cache.removeAll();
+        return result
+                .thenRun(() -> LOGGER.info("Application cart cache has been cleared!"))
+                .thenApply(r -> ok());
     }
 }

@@ -8,7 +8,7 @@ create table pet (
   name                          varchar(255),
   pet_type                      integer not null,
   description                   varchar(255),
-  price                         decimal(16,3),
+  price                         decimal(10,2),
   product_id                    varchar(255),
   color                         varchar(255),
   version                       bigint not null,

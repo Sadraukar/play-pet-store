@@ -28,7 +28,7 @@ public class Pet extends BaseModel {
     @Column(length=255)
     private String description;
 
-    @Column(scale=1)
+    @Column(precision = 10, scale = 2)
     private BigDecimal price;
 
     @Column

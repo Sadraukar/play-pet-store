@@ -8,13 +8,19 @@ GET     /                           controllers.HomeController.index()
 GET     /pets/search                     controllers.SearchController.searchPetByKeyword(keyword)
 #  Get parameter via path
 GET     /pets/type/:petType              controllers.SearchController.searchPetByType(petType)
+#  Utils page (for development)
 GET     /utils                      controllers.UtilController.utils()
+
+# Asynchronous Shopping Cart
+PATCH   /cart/:userId/:petId            controllers.CartController.addToCartForUser(userId: Int, petId: Long)
+GET     /cart/:userId                   controllers.CartController.cart(userId: Int)
+DELETE  /cart/:userId/:petId            controllers.CartController.removeFromCartForUser(userId: Int, petId: Long)
+DELETE  /cart/:userId                   controllers.CartController.clearCartForUser(userId: Int)
 
 #  Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 #  Util Endpoints
-+ nocsrf
 PUT     /utils/seed                       controllers.UtilController.seedDatabase()
-+ nocsrf
 DELETE  /utils/seed                       controllers.UtilController.clearDatabase()
+DELETE  /utils/cache/cart                 controllers.UtilController.clearApplicationCartCache()

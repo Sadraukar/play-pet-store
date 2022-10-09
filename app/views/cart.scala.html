@@ -1,0 +1,61 @@
+@import models.CartEntry
+
+@(cartList : List[CartEntry])
+@*****************************
+* Java <=> Scala typing fun! *
+*****************************@
+@subTotal = @{cartList.map(ce => ce.calculateCost()).foldLeft(java.math.BigDecimal.ZERO){(x,y)=>x.add(y)}}
+@tax = @{subTotal.multiply(java.math.BigDecimal.valueOf(0.06)).setScale(2)}
+@total = @{subTotal.add(tax)};
+
+@main("Cart") {
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 mx-auto">
+                <h3 class="text-light" >Cart</h3>
+                <hr>
+                <ul class="list-group shadow">
+                    @for(entry <- cartList) {
+                        @cartListEntry(entry)
+                    }
+                </ul>
+                <div class="bg-light rounded px-4 py-3">
+                    <div clas="media-body col-md-9 order-2 order-lg-1 float-start">
+                        <div class="d-flex align-items-center justify-content-between mt-1">
+                            <h5 class="my-2 font-weight-bold">Cart subtotal: $@subTotal</h5>
+                            <h6 class="my-2 font-weight-bold">Tax: $@tax</h6>
+                        </div>
+                    </div>
+                    <div clas="media-body col-md-9 order-2 order-lg-1 float-start">
+                        <div class="d-flex align-items-center justify-content-between mt-1">
+                            <h4 class="my-2font-weight-bold">Cart total: $@total</h4>
+                        </div>
+                    </div>
+                    <div clas="media-body col-md-9 order-2 order-lg-1 float-start">
+                        <div class="d-flex align-items-center justify-content-between mt-1 mb-3">
+                            <button class="btn btn-primary btn-lg">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function handleRemoveFromCart(button, petId, petName) {
+            button.disabled = true;
+            fetch('/cart/1/' + petId, {method: 'DELETE'})
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Failed to remove ' + petName + ' from cart.');
+                        }
+                    })
+                    .then(() => {
+                        button.disabled=false;
+                        location.reload();
+                    })
+                    .catch((error) => {
+                        console.error('There was a problem removing a pet from the cart: ', error);
+                    });
+        }
+    </script>
+}
