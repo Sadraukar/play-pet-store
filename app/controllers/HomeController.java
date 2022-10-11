@@ -1,8 +1,7 @@
 package controllers;
 
-import play.mvc.*;
-
-import java.util.concurrent.CompletableFuture;
+import play.mvc.Controller;
+import play.mvc.Result;
 
 /**
  * This controller contains an action to handle HTTP requests

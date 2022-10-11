@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 public class SearchController extends Controller {
     final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
@@ -26,7 +28,7 @@ public class SearchController extends Controller {
      * @param criteria Key-value pair of what to search for.  For example, an entry of <"petType","Dog"> will search for all pets with a type of "Dog".
      * @return Search results
      */
-    public List<Pet> search(Map<String, String> criteria) {
+    public CompletionStage<List<Pet>> search(Map<String, String> criteria) {
         ExpressionList<Pet> expressionList = DB.find(Pet.class)
                 .where()
                 .or();
@@ -39,22 +41,25 @@ public class SearchController extends Controller {
                         expressionList.add(Expr.ieq(c.getKey(), c.getValue()));
                     }
                 });
-        return expressionList.orderBy("productId").findList();
+
+        //  Wrap the blocking "findList" call in a CompletableFuture
+        return CompletableFuture.supplyAsync(() -> expressionList.orderBy("productId").findList());
     }
 
-    public Result searchPetByType(String petType) {
+    public CompletionStage<Result> searchPetByType(String petType) {
         //  Check that the petType requested is a valid one
         Pet.PetType petTypeEnum = Arrays.stream(Pet.PetType.values())
                 .filter(pt -> pt.name().equalsIgnoreCase(petType))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
 
-        List<Pet> searchResults = DB.find(Pet.class)
+        //  Wrap the blocking "findList" call in a CompletableFuture
+        CompletionStage<List<Pet>> searchResults = CompletableFuture.supplyAsync(() -> DB.find(Pet.class)
                 .where()
                 .eq("petType", petTypeEnum)
-                .findList();
+                .findList());
 
-        return ok(views.html.petList.render(searchResults));
+        return searchResults.thenApply(r -> ok(views.html.petList.render(r)));
     }
 
     /**
@@ -66,7 +71,7 @@ public class SearchController extends Controller {
      * @param keyword The keyword to use for searching
      * @return
      */
-    public Result searchPetByKeyword(String keyword) {
+    public CompletionStage<Result> searchPetByKeyword(String keyword) {
         LOGGER.debug("Initiating keyword search for: " + keyword);
 
         //  If the keyword is a pet type, search by pet type
@@ -80,9 +85,9 @@ public class SearchController extends Controller {
             KEYWORD_SEARCH_COLUMNS.forEach((c) -> {
                 searchCriteria.put(c, keyword);
             });
-            List<Pet> searchResults = search(searchCriteria);
+            CompletionStage<List<Pet>> searchResults = search(searchCriteria);
 
-            return ok(views.html.petList.render(searchResults));
+            return searchResults.thenApply(r -> ok(views.html.petList.render(r)));
         }
     }
 }

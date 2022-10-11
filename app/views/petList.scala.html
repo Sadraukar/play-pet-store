@@ -26,10 +26,20 @@
                         })
                         .then(() => {
                             button.disabled=false;
-                            alert('Success!');
+                            Toastify({
+                                text: petName + " added to your cart.",
+                                duration: 3000
+                            }).showToast();
                         })
                         .catch((error) => {
                             console.error('There was a problem adding a pet to the cart: ', error);
+                            Toastify({
+                                style: {
+                                    background: "#ff0000",
+                                },
+                                text: "Oops!  There was a problem adding " + petName + " to your cart.",
+                                duration: 3000
+                            }).showToast();
                         });
             }
     </script>
