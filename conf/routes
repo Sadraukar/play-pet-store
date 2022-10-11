@@ -12,8 +12,8 @@ GET     /pets/type/:petType              controllers.SearchController.searchPetB
 GET     /utils                      controllers.UtilController.utils()
 
 # Asynchronous Shopping Cart
-PATCH   /cart/:userId/:petId            controllers.CartController.addToCartForUser(userId: Int, petId: Long)
 GET     /cart/:userId                   controllers.CartController.cart(userId: Int)
+PATCH   /cart/:userId/:petId            controllers.CartController.addToCartForUser(userId: Int, petId: Long)
 DELETE  /cart/:userId/:petId            controllers.CartController.removeFromCartForUser(userId: Int, petId: Long)
 DELETE  /cart/:userId                   controllers.CartController.clearCartForUser(userId: Int)
 
