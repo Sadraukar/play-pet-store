@@ -1,4 +1,4 @@
-# Java Chess
+# Play Pet Store
 
 An implementation of [Java Pet Store](https://www.oracle.com/technical-resources/articles/javaee/pet-store-application.html) application using Play Framework for Java.
 
@@ -13,6 +13,9 @@ db.default.username                        = "ppsuser"
 db.default.password                        = "ppspass"
 db.default.logSql                          = false
 db.default.databaseName                    = "play_pet_store"
+
+#  This is a development environment, disable CSRF filtering
+play.filters.disabled += "play.filters.csrf.CSRFFilter"
 ```
 
 
@@ -33,19 +36,20 @@ sbt run
 This should start the application, which will be accessible at http://localhost:9000
 
 
-
-## Deployment
-
-
 ## Built With
 
 * [sbt](https://www.scala-sbt.org/) - Build tool
 * [Play Framework](https://www.playframework.com/) - Web Application Framework
 * [Bootstrap](https://getbootstrap.com/) - Front-End Framework
+* [Bootstrap Icons](https://icons.getbootstrap.com/) - Icons
 * [Ebean](https://ebean.io/) - ORM
+* [caffeine](https://github.com/ben-manes/caffeine) - High-performance caching
+* [Toastify](https://github.com/apvarun/toastify-js/) - Client-side notifications
+* Pictures from the [Pinnacle 21](https://www.pinnacle21.com/) pet family!
 
 ## Contributing
-
+This is a demonstration project meant for a technical talk.  If you'd like to contribute, you are welcome to by
+emailing the author.  However, this project is not slated for future development by the author.
 
 ## Authors
 
