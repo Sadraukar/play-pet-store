@@ -55,6 +55,13 @@
                     })
                     .catch((error) => {
                         console.error('There was a problem removing a pet from the cart: ', error);
+                        Toastify({
+                            style: {
+                                background: "#ff0000",
+                            },
+                            text: "Oops!  There was a problem removing " + petName + " from your cart.",
+                            duration: 3000
+                        }).showToast();
                     });
         }
     </script>
